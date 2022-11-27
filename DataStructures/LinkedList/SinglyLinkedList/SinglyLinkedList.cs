@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Collections;
+
 
 namespace DataStructures.LinkedList.SinglyLinkedList
 {
-    public class SingleLinkedList<T>: IEnumerable<T>
+    public class SinglyLinkedList<T>: IEnumerable<T>
     {
 
 
@@ -16,12 +11,17 @@ namespace DataStructures.LinkedList.SinglyLinkedList
 
         public SinglyLinkedListNode<T> Head { get; set; }
         private bool isHeadNull => Head == null;
-        public SingleLinkedList(IEnumerable<T> collection)
+        public SinglyLinkedList(IEnumerable<T> collection)
         {
             foreach (var item in collection)
             {
                 this.AddFirst(item);
             }
+        }
+
+        public SinglyLinkedList()
+        {
+
         }
 
         public void AddFirst(T value)
