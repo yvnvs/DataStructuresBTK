@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures.Array
 {
-    class Array<T> : IEnumerable<T> , ICloneable
+    public class Array<T> :IEnumerable<T>, ICloneable
     {
         private T[] InnerList;
         public int Count { get; private set; }
@@ -15,22 +15,106 @@ namespace DataStructures.Array
 
         public Array()
         {
-            InnerList= new T[2];
-            Count=0;
+
+            InnerList = new T[2];
+            Count = 0;
         }
-        public object Clone()
+
+        // Parametre olarak başlangıçta itemları ekleme 
+        public Array(params T[] initial)
         {
+            InnerList = new T[initial.Length];
+            Count= 0;
+
+            foreach (var item in initial)
+            {
+                Add(item); 
+            }
+        }
+
+        public Array(IEnumerable<T> collection)
+        {
+            InnerList = new T[collection.ToArray().Length];
+            Count = 0;
+
+            foreach (var item in collection)
+            {
+                Add(item);
+            }
+        }
+
+
+
+        public void Add(T item)
+        {
+            if (InnerList.Length == Count)
+            {
+                DoubleArray();
+            }
+            InnerList[Count++] = item;
+
+        }
+
+        public T Remove()
+        {
+            if (Count == 0)
+            {
+                throw new Exception("There is no more item to be removed from the array.");
+            }
+
+            if (InnerList.Length / 4 == Count)
+            {
+                HalfArray();
+            }
+            var temp = InnerList[Count - 1];
+            if (Count>0)
+            {
+                Count--;
+            }
+            return temp;
+
             throw new NotImplementedException();
         }
 
+        private void HalfArray()
+        {
+            if (InnerList.Length>2)
+            {
+                var temp = new T[InnerList.Length / 2];
+                System.Array.Copy(InnerList, temp, temp.Length);
+                InnerList= temp;
+            }
+        }
+
+        private void DoubleArray()
+        {
+            var temp = new T[InnerList.Length * 2];
+            /*
+            for (int i = 0; i < InnerList.Length; i++)
+            {
+                temp[i] = InnerList[i];
+            }
+            */
+
+            System.Array.Copy(InnerList, temp, InnerList.Length);
+            InnerList = temp;
+        }
+        public object Clone()
+        {
+        
+            return this.MemberwiseClone();
+
+        }
+
+
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return InnerList.Select( x => x).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
     }
 }
