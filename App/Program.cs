@@ -9,29 +9,19 @@ namespace Apps
     {
         static void Main(string[] args)
         {
+            var number = new int[] { 1, 2, 3, };
+            var queue1 = new DataStructures.Queue.Queue<int>();
+            var queue2 = new DataStructures.Queue.Queue<int>(DataStructures.Queue.QueueType.LinkedList);
 
-            var charset = new char[] { 'A', 'B', 'C', 'D', 'E' };
-            var stack1 = new DataStructures.Stack.Stack<char>();
-            var stack2 = new DataStructures.Stack.Stack<char>(StackType.LinkedList);
-
-            foreach (var c in charset)
+            foreach (var item in number)
             {
-                Console.WriteLine(c);
-                stack1.Push(c);
-                stack2.Push(c);
+                Console.WriteLine(item);
+                queue1.EnQueue(item);
+                queue2.EnQueue(item);
             }
 
-            Console.WriteLine("\nPeek");
-            Console.WriteLine($"Stack1: {stack1.Peek()}");
-            Console.WriteLine($"Stack2: {stack2.Peek()}");
-
-            Console.WriteLine("\nCount");
-            Console.WriteLine($"Stack1: {stack1.Count}");
-            Console.WriteLine($"Stack2: {stack2.Count}");
-
-            Console.WriteLine("\nPop");
-            Console.WriteLine($"Stack1: {stack1.Pop()} has been removed");
-            Console.WriteLine($"Stack2: {stack2.Pop()} has been removed");
+            Console.WriteLine($"queue1 count: {queue1.Count}" );
+            Console.WriteLine($"queue2 count: {queue2.Count}" );
 
 
             Console.ReadKey();
